@@ -1,2 +1,12 @@
 This readme needs more words in it.
 
+
+overall structure of program:
+
+    generate all of the 'processes' and sort them as necessary
+
+    run all processes according to each of the five management systems
+    (not all of the methods should use queues.  it's not always ideal.)
+
+    after all management systems finish, prints out all of the data
+    about average times and whatnot.
