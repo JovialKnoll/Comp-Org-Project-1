@@ -1,4 +1,4 @@
-#derp
+#this derp is a derp that can derp derps
 import random
 
 
@@ -11,18 +11,30 @@ class Process():
     start=-1
     end=-1
     
-    #initializes with the duration
+    #initializes with the duration, the time it entered the system, and
+    #the priority of the process. enter time and priority default to 0
     def __init__(self,d,e=0,p=0):
         self.duration=d
         self.enter=e
         self.priority=p
-        
+    
+    
+    
     #returns the time between start and end of the program
     #if it has not finished running, it returns -1
-    def runtime(self):
+    def turnaround(self):
         if self.start==-1 or self.end==-1: return -1
-        else: return self.end-self.start  
-    
+        else: return self.end-self.start
+        
+    #returns initial wait time
+    def iwait(self):
+        if self.start==-1 or self.enter==-1: return -1
+        else: return self.start-self.enter
+        
+    #returns total wait time
+    def twait(self):
+        if self.start==-1 or self.end==-1: return -1
+        else: return self.end-self.enter-self.duration
     
     
 """"""
