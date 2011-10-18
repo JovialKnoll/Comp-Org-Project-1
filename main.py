@@ -6,6 +6,11 @@ timer = 0
 
 timerSwitch = 8
 
+n = 20
+
+#initial list of processes, all algorithms will use the same ones
+plist = [Process(i, random.randint(500,7500), random.randint(0,4)) for i in range(0,n)]
+
 #q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
 

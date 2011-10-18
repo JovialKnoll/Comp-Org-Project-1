@@ -13,9 +13,13 @@ class Process():
     
     #initializes with the duration, the time it entered the system, and
     #the priority of the process. enter time and priority default to 0
-    def __init__(self,d,e=0,p=0):
+    
+    #they should enter the ready queue at the same time,
+    #the time of process creation should be put in later
+    def __init__(self,i,d,p=0):
+        self.id = i
         self.duration=d
-        self.enter=e
+        #self.enter=e
         self.priority=p
     
     
