@@ -1,6 +1,8 @@
 import Queue
 import random
 from process import Process
+import copy
+import sys
 
 timer = 0
 
@@ -9,7 +11,8 @@ timerSwitch = 8
 n = 20
 
 #initial list of processes, all algorithms will use the same ones
-plist = [Process(i, random.randint(500,7500), random.randint(0,4)) for i in range(0,n)]
+#list of processes, id, time needed for execution,      priority,                                    entry time                                           for n processes
+prolist = [Process(i, random.randint(500,7500), random.randint(0,4),random.randint(100,2500)*(i>=n/4)*(len(sys.argv) == 2 and sys.argv[1] == "-PART2")) for i in range(0,n)]
 
 #q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
@@ -20,8 +23,9 @@ running = true
 #First-Come, First-Served (FCFS), with no preemption and no time slice
 while(running):
     
+    print("[time ", timer, "ms] Process ", )
     #output during simulation
-    
+    n += 1
 
 """  """
 running = true

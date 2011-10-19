@@ -16,12 +16,11 @@ class Process():
     
     #they should enter the ready queue at the same time,
     #the time of process creation should be put in later
-    def __init__(self,i,d,p=0):
+    def __init__(self,i,d,p=0,e=0):
         self.id = i
         self.duration=d
-        #self.enter=e
         self.priority=p
-    
+        self.enter=e
     
     
     #returns the time between start and end of the program
