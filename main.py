@@ -44,34 +44,43 @@ queue = Queue.Queue(0)
 timer = 0
 pnum = 0 #the location of the next process that will be added to the queue
 incpu =-1
+ghost =-1
 
 processes=copy.deepcopy(prolist)
 processes.sort()
 """  """
-running = 1
+procsterminated=0
+
 #First-Come, First-Served (FCFS), with no preemption and no time slice
 turnaroundtimes = [n*750000,0,0]
 iwaittimes = [n*750000,0,0]
 twaittimes = [n*750000,0,0]
 
-while(pnum!=len(processes)):
+while(procsterminated<len(processes)):
     
-    a=processes[pnum]
-    while(a.enter==timer):
-        queue.put(a)
-        createprocess(a)
-        pnum+=1
-        if(pnum<len(processes)):
-            a=processes[pnum]
-        else: break
+    if(pnum<len(processes)):
+        a=processes[pnum]
+        while(a.enter==timer):
+            queue.put(a)
+            createprocess(a)
+            pnum+=1
+            if(pnum<len(processes)):
+                a=processes[pnum]
+            else: break
     if incpu == -1:
         incpu = queue.get()
+        
+        if ghost!=-1:
+            switchprocess(ghost,incpu)
+            
         if incpu.start == -1:
             incpu.start = timer
             startprocess(incpu)
     else:
         if incpu.timestep():
             terminateprocess(incpu)
+            procsterminated+=1
+            
             turnaroundtimes[0] = min(turnaroundtimes[0],incpu.turnaround())
             turnaroundtimes[1] += incpu.turnaround()
             turnaroundtimes[2] = max(turnaroundtimes[2],incpu.turnaround())
@@ -83,7 +92,10 @@ while(pnum!=len(processes)):
             twaittimes[0] = min(twaittimes[0],incpu.twait())
             twaittimes[1] += incpu.twait()
             twaittimes[2] = max(twaittimes[2],incpu.twait())
-            contextswitch()
+            
+            ghost=incpu
+            incpu=-1
+            
     
     
     #output during simulation
@@ -92,6 +104,7 @@ while(pnum!=len(processes)):
 turnaroundtimes[1] /= n
 iwaittimes[1] /= n
 twaittimes[1] /= n
+
 
 
 """  
