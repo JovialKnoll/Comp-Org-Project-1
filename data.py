@@ -31,4 +31,5 @@ class Data():
         print "\tTotal wait times:"
         print "\t\tMinimum:", self.timelist[6]
         print "\t\tAverage:", self.timelist[7]/self.n
-        print "\t\tMaximum:", self.timelist[8]
+        print "\t\tMaximum:", self.timelist[8], "\n"
+        
