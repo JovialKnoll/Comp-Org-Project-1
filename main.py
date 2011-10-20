@@ -82,10 +82,7 @@ while(procsterminated<len(processes)):
             ghost=incpu
             incpu=-1
             
-    
-    
-    
-    timer+=1
+        timer+=1
 
 print "\nFirst-Come, First-Served algorithm results:"
 data.timelistPrint()
@@ -137,9 +134,8 @@ while(procsterminated<len(processes)):
             
             ghost=incpu
             incpu=-1
-            
-            
-    timer+=1
+        
+        timer+=1
     
 print "\nShortest Job First algorithm results:"
 data.timelistPrint()
@@ -204,18 +200,16 @@ while(procsterminated<len(processes)):
             
             ghost=incpu
             incpu=-1
+            ticker=0
         elif ticker>=t:
             queue.put(incpu)
             ghost=incpu
             incpu=-1
             ticker=0
-            
-    
-    
-    
-    timer+=1
+        
+        timer+=1
 
-print "\nFirst-Come, First-Served algorithm results:"
+print "\nRound-Robin algorithm results:"
 data.timelistPrint()
 
 """
