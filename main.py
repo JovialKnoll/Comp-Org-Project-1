@@ -72,12 +72,13 @@ while(procsterminated<len(processes)):
         
         if ghost!=-1:
             switchprocess(ghost,incpu)
-            
+            timer+=8
         if incpu.start == -1:
             incpu.start = timer
             startprocess(incpu)
     else:
         if incpu.timestep():
+            incpu.end=timer
             terminateprocess(incpu)
             procsterminated+=1
             
