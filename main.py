@@ -84,7 +84,6 @@ while(procsterminated<len(processes)):
             
     
     
-    #output during simulation
     
     timer+=1
 
@@ -155,15 +154,71 @@ while(running):
     #output during simulation
     timer+=1
     
-"""  """
-running = 1
-#Round-Robin (RR), with configurable time slice t initially set to 100 milliseconds
-while(running):
+"""  #Round-Robin (RR), with configurable time slice t initially set to 100 milliseconds
+
+#q=q.q()  qqqqqqq
+queue = Queue.Queue(0)
+
+timer = 0
+pnum = 0 #the location of the next process that will be added to the queue
+procsterminated=0
+
+incpu =-1
+ghost =-1
+
+t=100
+ticker=0
+
+processes=copy.deepcopy(prolist)
+processes.sort()
+
+data = Data(n)
+
+while(procsterminated<len(processes)):
     
-    #output during simulation
+    if(pnum<len(processes)):
+        a=processes[pnum]
+        while(a.enter==timer):
+            queue.put(a)
+            createprocess(a)
+            pnum+=1
+            if(pnum<len(processes)):
+                a=processes[pnum]
+            else: break
+    if incpu == -1:
+        incpu = queue.get()
+        
+        if ghost!=-1:
+            switchprocess(ghost,incpu)
+            timer+=8
+        if incpu.start == -1:
+            incpu.start = timer
+            startprocess(incpu)
+    else:
+        ticker+=1
+        if incpu.timestep():
+            incpu.end=timer
+            terminateprocess(incpu)
+            procsterminated+=1
+            data.input(incpu)
+            
+            ghost=incpu
+            incpu=-1
+        elif ticker>=t:
+            queue.put(incpu)
+            ghost=incpu
+            incpu=-1
+            ticker=0
+            
+    
+    
+    
     timer+=1
 
-"""  """
+print "\nFirst-Come, First-Served algorithm results:"
+data.timelistPrint()
+
+"""
 running = 1
 #Preemptive Priority, with random priority levels 0-4 assigned to processes at the onset (low numbers indicate high priority); processes with the same priority are processed in FCFS order with no time slice; higher-priority processes entering the system interrupt and preempt a running process
 while(running):
