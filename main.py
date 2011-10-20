@@ -13,7 +13,7 @@ def switchprocess(a,b):
 def startprocess(a):
     print "[time",timer,"ms] Process",a.id,"addessed CPU fot the first time (wait time",a.iwait(),"ms)"
 def terminateprocess(a):
-    print "[time",timer,"ms] Process",id,"terminated (turnaround time",a.turnaround(),"ms, wait time",a.twait(),"ms)"
+    print "[time",timer,"ms] Process",a.id,"terminated (turnaround time",a.turnaround(),"ms, wait time",a.twait(),"ms)"
 
 
 """ """
@@ -41,6 +41,7 @@ queue = Queue.Queue(0)
 
 timer = 0
 pnum = 0 #the location of the next process that will be added to the queue
+incpu =-1
 
 processes=copy.deepcopy(prolist)
 processes.sort()
