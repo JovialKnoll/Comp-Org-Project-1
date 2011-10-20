@@ -35,23 +35,22 @@ the len(sys.argv)==2 component ensures that no null pointer exception is thrown 
 """
 
 
+"""  """#First-Come, First-Served (FCFS), with no preemption and no time slice
+
 #q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
 
-
-
-
 timer = 0
 pnum = 0 #the location of the next process that will be added to the queue
+procsterminated=0
+
 incpu =-1
 ghost =-1
 
 processes=copy.deepcopy(prolist)
 processes.sort()
-"""  """
-procsterminated=0
 
-#First-Come, First-Served (FCFS), with no preemption and no time slice
+
 turnaroundtimes = [n*750000,0,0]
 iwaittimes = [n*750000,0,0]
 twaittimes = [n*750000,0,0]
@@ -108,15 +107,59 @@ twaittimes[1] /= n
 
 
 
-"""  
-running = 1
-#Shortest-Job-First (SJF), with no preemption and no time slice
-while(running):
+
+
+"""  """#Shortest-Job-First (SJF), with no preemption and no time slice
+
+#q=q.q()  qqqqqqq
+queue = Queue.Queue(0)
+
+timer = 0
+pnum = 0 #the location of the next process that will be added to the queue
+procsterminated=0
+
+incpu =-1
+ghost =-1
+
+processes=copy.deepcopy(prolist)
+processes.sort()
+
+while(procsterminated<len(processes)):
     
-    #output during simulation
+    if(pnum<len(processes)):
+        a=processes[pnum]
+        while(a.enter==timer):
+            queue.put(a)
+            createprocess(a)
+            pnum+=1
+            if(pnum<len(processes)):
+                a=processes[pnum]
+            else: break
+    if incpu == -1:
+        incpu = queue.get()
+        
+        if ghost!=-1:
+            switchprocess(ghost,incpu)
+            timer+=8
+        if incpu.start == -1:
+            incpu.start = timer
+            startprocess(incpu)
+    else:
+        if incpu.timestep():
+            incpu.end=timer
+            terminateprocess(incpu)
+            procsterminated+=1
+            
+            ghost=incpu
+            incpu=-1
+            
+            
     timer+=1
     
-"""  """
+
+
+
+"""  
 running = 1
 #Preemptive Shortest-Job-First (SJF), with preemption and no time slice
 while(running):
