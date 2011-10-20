@@ -7,6 +7,8 @@ class Process():
     start=-1
     end=-1
     
+    done=0
+    
     #initializes with the duration, process id,
     #the priority of the process, and the time it
     #should enter the system.
@@ -25,36 +27,31 @@ class Process():
     #returns the time between start and end of the program
     #if it has not finished running, it returns -1
     def turnaround(self):
-        if self.enter==-1 or self.end==-1: return -1
-        else: return self.end-self.start
+        if done: return self.end-self.start
+        else: return -1
         
     #returns initial wait time
     def iwait(self):
-        if self.start==-1 or self.enter==-1: return -1
-        else: return self.start-self.enter
+        if done: return self.start-self.enter
+        else: return -1
         
     #returns total wait time
     def twait(self):
-        if self.enter==-1 or self.end==-1: return -1
-        else: return self.end-self.enter-self.duration
+        if done: return self.end-self.enter-self.duration
+        else: return -1
     
     #increments the current time.  returns false until the
     #current time is one where the process would be done.
     def timestep(self,t=1):
         self.curtime+=t
-        return self.curtime>=self.duration
-    
-    
-        
-    
+        if(self.curtime>=self.duration): done=1
+        return done
+            
+   
     
     
 """"""
 #only test code past here
 
 
-#initializes with random duration
-p=Process(1,random.randint(500,7500))
-p.start=15
-p.end=1000
-print p.turnaround()
+
