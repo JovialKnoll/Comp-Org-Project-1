@@ -31,7 +31,7 @@ prolist = [Process(i, random.randint(500,7500), random.randint(0,4),random.randi
 """
 the entry time argument looks mildly terrifying, but all it's doing is setting it to a random int in the range [100.2500]
   iff it is not in the first 25% of the processes created and the -PART2 argument was passed.
-if either of those things are not true, then the random intiger is multiplied by 0, causing the entry time to be 0.
+if either of those things are not true, then the random integer is multiplied by 0, causing the entry time to be 0.
 the len(sys.argv)==2 component ensures that no null pointer exception is thrown when attempting to check argv[1].
 """
 
@@ -45,9 +45,7 @@ running = true
 #First-Come, First-Served (FCFS), with no preemption and no time slice
 while(running):
     
-    print("[time ", timer, "ms] Process ", )
     #output during simulation
-    n += 1
 
 """  """
 running = true
