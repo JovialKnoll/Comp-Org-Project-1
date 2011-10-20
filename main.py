@@ -39,15 +39,15 @@ the len(sys.argv)==2 component ensures that no null pointer exception is thrown 
 #q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
 
-
+processes=copy.deepcopy(prolist)
+sorted(processes, key=lambda process: process.id)
 """  """
 running = true
 #First-Come, First-Served (FCFS), with no preemption and no time slice
 while(running):
     
-    print("[time ", timer, "ms] Process ", )
     #output during simulation
-    n += 1
+    
 
 """  """
 running = true
