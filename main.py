@@ -6,20 +6,17 @@ import sys
 
 
 #so far, just printout functions.  pass Processes to these
-def createprocess(a)
-    print "[time",timer,"ms] Process",a.id,"created (requiring",duration,"ms cpu time)"
-def switchprocess(a,b)
+def createprocess(a):
+    print "[time",timer,"ms] Process",a.id,"created (requiring",a.duration,"ms cpu time)"
+def switchprocess(a,b):
     print "[time",timer,"ms] Context switch (swapped out process",a.id,"for process",b.id,")"
-def startprocess(a)
+def startprocess(a):
     print "[time",timer,"ms] Process",a.id,"addessed CPU fot the first time (wait time",a.iwait(),"ms)"
-def terminateprocess(a)
+def terminateprocess(a):
     print "[time",timer,"ms] Process",id,"terminated (turnaround time",a.turnaround(),"ms, wait time",a.twait(),"ms)"
 
 
 """ """
-
-
-timer = 0
 
 timerSwitch = 8
 
@@ -39,53 +36,71 @@ the len(sys.argv)==2 component ensures that no null pointer exception is thrown 
 #q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
 
+
+
+
+timer = 0
+pnum = 0 #the location of the next process that will be added to the queue
+
 processes=copy.deepcopy(prolist)
-sorted(processes, key=lambda process: process.id)
+processes.sort()
 """  """
-running = true
+running = 1
 #First-Come, First-Served (FCFS), with no preemption and no time slice
-while(running):
+while(pnum!=len(processes)):
+    
+    a=processes[pnum]
+    while(a.enter==timer):
+        queue.put(a)
+        createprocess(a)
+        pnum+=1
+        if(pnum<len(processes)):
+            a=processes[pnum]
+        else: break
+    
+    
     
     #output during simulation
-<<<<<<< HEAD
     
-=======
->>>>>>> 26d66e9eb018e68c77df66e0a1711cb79d0af86b
+    timer+=1
 
-"""  """
-running = true
+
+
+"""  
+running = 1
 #Shortest-Job-First (SJF), with no preemption and no time slice
 while(running):
     
     #output during simulation
-    
+    timer+=1
     
 """  """
-running = true
+running = 1
 #Preemptive Shortest-Job-First (SJF), with preemption and no time slice
 while(running):
     
     #output during simulation
-    
+    timer+=1
     
 """  """
-running = true
+running = 1
 #Round-Robin (RR), with configurable time slice t initially set to 100 milliseconds
 while(running):
     
     #output during simulation
-
+    timer+=1
 
 """  """
-running = true
+running = 1
 #Preemptive Priority, with random priority levels 0-4 assigned to processes at the onset (low numbers indicate high priority); processes with the same priority are processed in FCFS order with no time slice; higher-priority processes entering the system interrupt and preempt a running process
 while(running):
     
     #output during simulation
-    
-    
+    timer+=1
+        
 """  """
 #output for each scheduling algorithm:
 #Minimum, average, and maximum turnaround times
 #Minimum, average, and maximum initial wait times
 #Minimum, average, and maximum total wait times
+"""

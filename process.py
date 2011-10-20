@@ -19,6 +19,8 @@ class Process():
         self.enter=e
         self.curtime=0
     
+    def __lt__(self,other):
+        return self.enter<other.enter
     
     #returns the time between start and end of the program
     #if it has not finished running, it returns -1
