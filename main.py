@@ -2,7 +2,7 @@ from __future__ import division
 import Queue
 import random
 from process import Process
-#from data import Data
+from data import Data
 import copy
 import sys
 
@@ -50,10 +50,7 @@ ghost =-1
 processes=copy.deepcopy(prolist)
 processes.sort()
 
-
-turnaroundtimes = [n*750000,0,0]
-iwaittimes = [n*750000,0,0]
-twaittimes = [n*750000,0,0]
+data = Data(n)
 
 while(procsterminated<len(processes)):
     
@@ -80,18 +77,7 @@ while(procsterminated<len(processes)):
             incpu.end=timer
             terminateprocess(incpu)
             procsterminated+=1
-            
-            turnaroundtimes[0] = min(turnaroundtimes[0],incpu.turnaround())
-            turnaroundtimes[1] += incpu.turnaround()
-            turnaroundtimes[2] = max(turnaroundtimes[2],incpu.turnaround())
-            
-            iwaittimes[0] = min(iwaittimes[0],incpu.iwait())
-            iwaittimes[1] += incpu.iwait()
-            iwaittimes[2] = max(iwaittimes[2],incpu.iwait())
-            
-            twaittimes[0] = min(twaittimes[0],incpu.twait())
-            twaittimes[1] += incpu.twait()
-            twaittimes[2] = max(twaittimes[2],incpu.twait())
+            data.input(incpu)
             
             ghost=incpu
             incpu=-1
@@ -101,13 +87,11 @@ while(procsterminated<len(processes)):
     #output during simulation
     
     timer+=1
-turnaroundtimes[1] /= n
-iwaittimes[1] /= n
-twaittimes[1] /= n
 
+print "First-Come, First-Served algorithm results:"
+data.timelistPrint()
 
-
-
+exit()
 
 """  """#Shortest-Job-First (SJF), with no preemption and no time slice
 
