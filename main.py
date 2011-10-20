@@ -9,13 +9,13 @@ import sys
 
 #so far, just printout functions.  pass Processes to these
 def createprocess(a):
-    print "[time",timer,"ms] Process",a.id,"created (requiring",a.duration,"ms cpu time)"
+    print "[time","%.fms] Process" % (timer),"%.f created (requiring" % (a.id),"%.fms cpu time)" % (a.duration)
 def switchprocess(a,b):
-    print "[time",timer,"ms] Context switch (swapped out process",a.id,"for process",b.id,")"
+    print "[time","%.fms] Context switch (swapped out process" % (timer),"%.f for process" % (a.id),"%.f)" % (b.id)
 def startprocess(a):
-    print "[time",timer,"ms] Process",a.id,"accessed CPU for the first time (wait time",a.iwait(),"ms)"
+    print "[time","%.fms] Process" % (timer),"%.f accessed CPU for the first time (wait time" % (a.id),"%.fms)" % (a.iwait())
 def terminateprocess(a):
-    print "[time",timer,"ms] Process",a.id,"terminated (turnaround time",a.turnaround(),"ms, wait time",a.twait(),"ms)"
+    print "[time","%.fms] Process" % (timer),"%.f terminated (turnaround time" % (a.id),"%.fms, wait time" % (a.turnaround()),"%.fms)" % (a.twait())
 
 
 """ """
