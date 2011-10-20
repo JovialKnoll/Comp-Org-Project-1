@@ -88,7 +88,7 @@ while(procsterminated<len(processes)):
     
     timer+=1
 
-print "First-Come, First-Served algorithm results:"
+print "\nFirst-Come, First-Served algorithm results:"
 data.timelistPrint()
 
 
@@ -142,7 +142,7 @@ while(procsterminated<len(processes)):
             
     timer+=1
     
-print "Shortest Job First algorithm results:"
+print "\nShortest Job First algorithm results:"
 data.timelistPrint()
 
 
