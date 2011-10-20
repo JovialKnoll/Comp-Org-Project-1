@@ -1,8 +1,10 @@
 import Queue
 import random
 from process import Process
+from data import Data
 import copy
 import sys
+from __future__ import division
 
 
 #so far, just printout functions.  pass Processes to these
@@ -48,6 +50,10 @@ processes.sort()
 """  """
 running = 1
 #First-Come, First-Served (FCFS), with no preemption and no time slice
+turnaroundtimes = [n*750000,0,0]
+iwaittimes = [n*750000,0,0]
+twaittimes = [n*750000,0,0]
+
 while(pnum!=len(processes)):
     
     a=processes[pnum]
@@ -58,13 +64,34 @@ while(pnum!=len(processes)):
         if(pnum<len(processes)):
             a=processes[pnum]
         else: break
-    
+    if incpu == -1:
+        incpu = queue.pull()
+        if incpu.start == -1:
+            incpu.start = timer
+            startprocess(incpu)
+    else:
+        if incpu.timestep():
+            terminateprocess(incpu)
+            turnaroundtimes[0] = min(turnaroundtimes[0],incpu.turnaround())
+            turnaroundtimes[1] += incpu.turnaround()
+            turnaroundtimes[2] = max(turnaroundtimes[2],incpu.turnaround())
+            
+            iwaittimes[0] = min(iwaittimes[0],incpu.iwait())
+            iwaittimes[1] += incpu.iwait()
+            iwaittimes[2] = max(iwaittimes[2],incpu.iwait())
+            
+            twaittimes[0] = min(twaittimes[0],incpu.twait())
+            twaittimes[1] += incpu.twait()
+            twaittimes[2] = max(twaittimes[2],incpu.twait())
+            contextswitch()
     
     
     #output during simulation
     
     timer+=1
-
+turnaroundtimes[1] /= n
+iwaittimes[1] /= n
+twaittimes[1] /= n
 
 
 """  
