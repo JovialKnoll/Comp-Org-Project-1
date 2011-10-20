@@ -1,3 +1,4 @@
+from __future__ import division
 
 class Data():
 
@@ -21,15 +22,15 @@ class Data():
         
     def timelistPrint(self):
         print "\tTurnaround times:"
-        print "\t\tMinimum:", self.timelist[0]
-        print "\t\tAverage:", self.timelist[1]/self.n
-        print "\t\tMaximum:", self.timelist[2]
+        print "\t\tMinimum:", round(self.timelist[0],3)
+        print "\t\tAverage:", round(self.timelist[1]/self.n,3)
+        print "\t\tMaximum:", round(self.timelist[2],3)
         print "\tInitial wait times:"
-        print "\t\tMinimum:", self.timelist[3]
-        print "\t\tAverage:", self.timelist[4]/self.n
-        print "\t\tMaximum:", self.timelist[5]
+        print "\t\tMinimum:", round(self.timelist[3],3)
+        print "\t\tAverage:", round(self.timelist[4]/self.n,3)
+        print "\t\tMaximum:", round(self.timelist[5],3)
         print "\tTotal wait times:"
-        print "\t\tMinimum:", self.timelist[6]
-        print "\t\tAverage:", self.timelist[7]/self.n
-        print "\t\tMaximum:", self.timelist[8], "\n"
+        print "\t\tMinimum:", round(self.timelist[6],3)
+        print "\t\tAverage:", round(self.timelist[7]/self.n,3)
+        print "\t\tMaximum:", round(self.timelist[8],3), "\n"
         
