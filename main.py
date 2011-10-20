@@ -1,10 +1,10 @@
+from __future__ import division
 import Queue
 import random
 from process import Process
-from data import Data
+#from data import Data
 import copy
 import sys
-from __future__ import division
 
 
 #so far, just printout functions.  pass Processes to these
@@ -13,7 +13,7 @@ def createprocess(a):
 def switchprocess(a,b):
     print "[time",timer,"ms] Context switch (swapped out process",a.id,"for process",b.id,")"
 def startprocess(a):
-    print "[time",timer,"ms] Process",a.id,"addessed CPU fot the first time (wait time",a.iwait(),"ms)"
+    print "[time",timer,"ms] Process",a.id,"accessed CPU for the first time (wait time",a.iwait(),"ms)"
 def terminateprocess(a):
     print "[time",timer,"ms] Process",a.id,"terminated (turnaround time",a.turnaround(),"ms, wait time",a.twait(),"ms)"
 
@@ -65,7 +65,7 @@ while(pnum!=len(processes)):
             a=processes[pnum]
         else: break
     if incpu == -1:
-        incpu = queue.pull()
+        incpu = queue.get()
         if incpu.start == -1:
             incpu.start = timer
             startprocess(incpu)

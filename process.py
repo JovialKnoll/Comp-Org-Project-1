@@ -27,25 +27,25 @@ class Process():
     #returns the time between start and end of the program
     #if it has not finished running, it returns -1
     def turnaround(self):
-        if done: return self.end-self.start
+        if self.done: return self.end-self.enter
         else: return -1
         
     #returns initial wait time
     def iwait(self):
-        if done: return self.start-self.enter
+        if self.start!=-1: return self.start-self.enter
         else: return -1
         
     #returns total wait time
     def twait(self):
-        if done: return self.end-self.enter-self.duration
+        if self.done: return self.end-self.enter-self.duration
         else: return -1
     
     #increments the current time.  returns false until the
     #current time is one where the process would be done.
     def timestep(self,t=1):
         self.curtime+=t
-        if(self.curtime>=self.duration): done=1
-        return done
+        if(self.curtime>=self.duration): self.done=1
+        return self.done
             
    
     
