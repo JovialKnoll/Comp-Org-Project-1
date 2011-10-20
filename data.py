@@ -20,15 +20,15 @@ class Data():
         self.timelist[8] = max(self.timelist[8],inpro.twait())
         
     def timelistPrint(self):
-        print "Turnaround times:"
-        print "\nMinimum:", self.timelist[0]
-        print "\nAverage:", self.timelist[1]/self.n
-        print "\nMaximum:", self.timelist[2]
-        print "Initial wait times:"
-        print "\nMinimum:", self.timelist[3]
-        print "\nAverage:", self.timelist[4]/self.n
-        print "\nMaximum:", self.timelist[5]
-        print "Total wait times:"
-        print "\nMinimum:", self.timelist[6]
-        print "\nAverage:", self.timelist[7]/self.n
-        print "\nMaximum:", self.timelist[8]
+        print "\tTurnaround times:"
+        print "\t\tMinimum:", self.timelist[0]
+        print "\t\tAverage:", self.timelist[1]/self.n
+        print "\t\tMaximum:", self.timelist[2]
+        print "\tInitial wait times:"
+        print "\t\tMinimum:", self.timelist[3]
+        print "\t\tAverage:", self.timelist[4]/self.n
+        print "\t\tMaximum:", self.timelist[5]
+        print "\tTotal wait times:"
+        print "\t\tMinimum:", self.timelist[6]
+        print "\t\tAverage:", self.timelist[7]/self.n
+        print "\t\tMaximum:", self.timelist[8]
