@@ -91,12 +91,11 @@ while(procsterminated<len(processes)):
 print "First-Come, First-Served algorithm results:"
 data.timelistPrint()
 
-exit()
 
 """  """#Shortest-Job-First (SJF), with no preemption and no time slice
 
 #q=q.q()  qqqqqqq
-queue = Queue.Queue(0)
+queue = Queue.PriorityQueue(0)
 
 timer = 0
 pnum = 0 #the location of the next process that will be added to the queue
@@ -108,19 +107,21 @@ ghost =-1
 processes=copy.deepcopy(prolist)
 processes.sort()
 
+data = Data(n)
+
 while(procsterminated<len(processes)):
     
     if(pnum<len(processes)):
         a=processes[pnum]
         while(a.enter==timer):
-            queue.put(a)
+            queue.put((a.duration,a))
             createprocess(a)
             pnum+=1
             if(pnum<len(processes)):
                 a=processes[pnum]
             else: break
     if incpu == -1:
-        incpu = queue.get()
+        incpu = queue.get()[1]
         
         if ghost!=-1:
             switchprocess(ghost,incpu)
@@ -133,6 +134,7 @@ while(procsterminated<len(processes)):
             incpu.end=timer
             terminateprocess(incpu)
             procsterminated+=1
+            data.input(incpu)
             
             ghost=incpu
             incpu=-1
@@ -140,6 +142,8 @@ while(procsterminated<len(processes)):
             
     timer+=1
     
+print "Shortest Job First algorithm results:"
+data.timelistPrint()
 
 
 
