@@ -8,5 +8,5 @@ overall structure of program:
     run all processes according to each of the five management systems
     (not all of the methods should use queues.  it's not always ideal.)
 
-    after all management systems finish, prints out all of the data
+    after each management system finishes, it prints out all of the data
     about average times and whatnot.
