@@ -1,3 +1,5 @@
+#Brett Kaplan and Jeff Johnston
+
 from __future__ import division
 
 class Data():
@@ -7,15 +9,15 @@ class Data():
         self.timelist = [n*750000,0,0,n*750000,0,0,n*750000,0,0]
     
     def input(self, inpro):
-        #turnaround
+        #turnaround[min,avg,max]
         self.timelist[0] = min(self.timelist[0],inpro.turnaround())
         self.timelist[1] += inpro.turnaround()
         self.timelist[2] = max(self.timelist[2],inpro.turnaround())
-        #iwait
+        #iwait[min,avg,max]
         self.timelist[3] = min(self.timelist[3],inpro.iwait())
         self.timelist[4] += inpro.iwait()
         self.timelist[5] = max(self.timelist[5],inpro.iwait())
-        #twait
+        #twait[min,avg,max]
         self.timelist[6] = min(self.timelist[6],inpro.twait())
         self.timelist[7] += inpro.twait()
         self.timelist[8] = max(self.timelist[8],inpro.twait())
@@ -30,3 +32,4 @@ class Data():
         print "\tTotal wait times:\n\t\tMinimum: %.3f" % (self.timelist[6])
         print "\t\tAverage: %.3f" % (self.timelist[7]/self.n)
         print "\t\tMaximum: %.3f\n" % (self.timelist[8])
+        

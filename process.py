@@ -1,4 +1,5 @@
-#this derp is a derp that can derp derps
+#Brett Kaplan and Jeff Johnston
+
 import random
 
 
@@ -48,10 +49,4 @@ class Process():
         return self.done
             
    
-    
-    
-""""""
-#only test code past here
-
-
 

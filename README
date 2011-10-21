@@ -1,12 +1,10 @@
-This readme needs more words in it.
+Brett Kaplan and Jeff Johnston
 
+This program is for Python 2.6-2.7.  It does *not* work in python 3.
+it is a single program, called in the command line with:
+    
+    python main.py [-PART2]
 
-overall structure of program:
-
-    generate all of the 'processes' and sort them as necessary
-
-    run all processes according to each of the five management systems
-    (not all of the methods should use queues.  it's not always ideal.)
-
-    after each management system finishes, it prints out all of the data
-    about average times and whatnot.
+If the -PART2 flag is used, it will start 3/4 of the processes at a
+random time as defined in the assignment.
+All tunable variables can be found from lines 18-20 in main.py

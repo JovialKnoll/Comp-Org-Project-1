@@ -1,3 +1,5 @@
+#Brett Kaplan and Jeff Johnston
+
 from __future__ import division
 import Queue
 import random
@@ -5,6 +7,19 @@ from process import Process
 from data import Data
 import copy
 import sys
+
+
+
+"""
+these are the tunable variables for the program.  timerSwitch is the clock time in ms
+that it takes for a context switch. t is the timeslice for the round-robin algorithm.
+n is the number of processes simulated.
+"""
+timerSwitch = 8
+t=100
+n = 20
+
+
 
 
 #printout functions.  pass Processes to these and they will print what they say they will
@@ -20,9 +35,6 @@ def terminateprocess(a):
 
 """ """
 
-timerSwitch = 8
-
-n = 20
 
 #initial list of processes, all algorithms will use the same ones
 #list of processes, id, time needed for execution,      priority,                                    entry time                                           for n processes
@@ -37,15 +49,14 @@ the len(sys.argv)==2 component ensures that no null pointer exception is thrown 
 
 """  """#First-Come, First-Served (FCFS), with no preemption and no time slice
 
-#q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
 
 timer = 0
 pnum = 0 #the location of the next process that will be added to the queue
-procsterminated=0
+procsterminated=0 #processes terminated
 
-incpu =-1
-ghost =-1
+incpu =-1 #holds a reference to the current process in cpu
+ghost =-1 #holds a reference to the last process in cpu
 
 processes=copy.deepcopy(prolist)
 processes.sort()
@@ -90,7 +101,6 @@ data.timelistPrint()
 
 """  """#Shortest-Job-First (SJF), with no preemption and no time slice
 
-#q=q.q()  qqqqqqq
 queue = Queue.PriorityQueue(0)
 
 timer = 0
@@ -144,7 +154,6 @@ data.timelistPrint()
 
 """  """#Preemptive Shortest-Job-First (SJF), with preemption and no time slice
 
-#q=q.q()  qqqqqqq
 queue = Queue.PriorityQueue(0)
 
 timer = 0
@@ -168,6 +177,8 @@ while(procsterminated<len(processes)):
             createprocess(a)
             pnum+=1
             
+            #preempts the current running process if the one being
+            #put in would finish before the current process.
             if(incpu!=-1 and (incpu.duration-incpu.curtime)>a.duration):
                 queue.put((incpu.duration,incpu))
                 ghost=incpu
@@ -204,7 +215,6 @@ data.timelistPrint()
 
 """ """#Round-Robin (RR), with configurable time slice t initially set to 100 milliseconds
 
-#q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
 
 timer = 0
@@ -214,7 +224,7 @@ procsterminated=0
 incpu =-1
 ghost =-1
 
-t=100
+
 ticker=0
 
 processes=copy.deepcopy(prolist)
@@ -269,7 +279,6 @@ data.timelistPrint()
 
 """ """#Preemptive Priority, with random priority levels 0-4 assigned to processes at the onset
 
-#q=q.q()  qqqqqqq
 queue = Queue.PriorityQueue(0)
 
 timer = 0
@@ -291,9 +300,10 @@ while(procsterminated<len(processes)):
         while(a.enter<=timer):
             queue.put((a.priority,a))
             createprocess(a)
-            print a.priority
             pnum+=1
             
+            #preempts the current running process if the one being
+            #put in is of higher priority
             if(incpu!=-1 and (incpu.priority>a.priority)):
                 queue.put((incpu.priority,incpu))
                 ghost=incpu
