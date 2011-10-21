@@ -37,7 +37,7 @@ class Process():
         
     #returns total wait time
     def twait(self):
-        if self.done: return self.end-self.enter-self.duration
+        if self.done: return self.end-self.enter-self.duration+1
         else: return -1
     
     #increments the current time.  returns false until the

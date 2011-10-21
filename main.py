@@ -201,7 +201,6 @@ print "\nPreemptive Shortest Job First algorithm results:"
 data.timelistPrint()
     
 
-quit()
 
 """ """#Round-Robin (RR), with configurable time slice t initially set to 100 milliseconds
 
@@ -249,7 +248,6 @@ while(procsterminated<len(processes)):
             incpu.end=timer
             terminateprocess(incpu)
             procsterminated+=1
-            #print procsterminated
             data.input(incpu)
             
             ghost=incpu
