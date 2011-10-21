@@ -142,15 +142,68 @@ data.timelistPrint()
 
 
 
-"""  
-running = 1
-#Preemptive Shortest-Job-First (SJF), with preemption and no time slice
-while(running):
+"""  """#Preemptive Shortest-Job-First (SJF), with preemption and no time slice
+
+#q=q.q()  qqqqqqq
+queue = Queue.PriorityQueue(0)
+
+timer = 0
+pnum = 0 #the location of the next process that will be added to the queue
+procsterminated=0
+
+incpu =-1
+ghost =-1
+
+processes=copy.deepcopy(prolist)
+processes.sort()
+
+data = Data(n)
+
+while(procsterminated<len(processes)):
     
-    #output during simulation
-    timer+=1
+    if(pnum<len(processes)):
+        a=processes[pnum]
+        while(a.enter<=timer):
+            queue.put((a.duration,a))
+            createprocess(a)
+            pnum+=1
+            
+            if(incpu!=-1 and (incpu.duration-incpu.curtime)>a.duration):
+                queue.put((incpu.duration,incpu))
+                ghost=incpu
+                incpu=-1
+            
+            if(pnum<len(processes)):
+                a=processes[pnum]
+            else: break
+    if incpu == -1:
+        incpu = queue.get()[1]
+        
+        if ghost!=-1:
+            switchprocess(ghost,incpu)
+            timer+=timerSwitch
+        if incpu.start == -1:
+            incpu.start = timer
+            startprocess(incpu)
+    else:
+        if incpu.timestep():
+            incpu.end=timer
+            terminateprocess(incpu)
+            procsterminated+=1
+            data.input(incpu)
+            
+            ghost=incpu
+            incpu=-1
+        
+        timer+=1
     
-"""  #Round-Robin (RR), with configurable time slice t initially set to 100 milliseconds
+print "\nPreemptive Shortest Job First algorithm results:"
+data.timelistPrint()
+    
+
+quit()
+
+""" """#Round-Robin (RR), with configurable time slice t initially set to 100 milliseconds
 
 #q=q.q()  qqqqqqq
 queue = Queue.Queue(0)
