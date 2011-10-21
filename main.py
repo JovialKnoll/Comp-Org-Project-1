@@ -264,17 +264,68 @@ while(procsterminated<len(processes)):
 print "\nRound-Robin algorithm results:"
 data.timelistPrint()
 
-"""
-running = 1
-#Preemptive Priority, with random priority levels 0-4 assigned to processes at the onset (low numbers indicate high priority); processes with the same priority are processed in FCFS order with no time slice; higher-priority processes entering the system interrupt and preempt a running process
-while(running):
+
+
+
+""" """#Preemptive Priority, with random priority levels 0-4 assigned to processes at the onset
+
+#q=q.q()  qqqqqqq
+queue = Queue.PriorityQueue(0)
+
+timer = 0
+pnum = 0 #the location of the next process that will be added to the queue
+procsterminated=0
+
+incpu =-1
+ghost =-1
+
+processes=copy.deepcopy(prolist)
+processes.sort()
+
+data = Data(n)
+
+while(procsterminated<len(processes)):
     
-    #output during simulation
-    timer+=1
+    if(pnum<len(processes)):
+        a=processes[pnum]
+        while(a.enter<=timer):
+            queue.put((a.priority,a))
+            createprocess(a)
+            print a.priority
+            pnum+=1
+            
+            if(incpu!=-1 and (incpu.priority>a.priority)):
+                queue.put((incpu.priority,incpu))
+                ghost=incpu
+                incpu=-1
+            
+            if(pnum<len(processes)):
+                a=processes[pnum]
+            else: break
+    if incpu == -1:
+        incpu = queue.get()[1]
         
-"""  """
-#output for each scheduling algorithm:
-#Minimum, average, and maximum turnaround times
-#Minimum, average, and maximum initial wait times
-#Minimum, average, and maximum total wait times
-"""
+        if ghost!=-1:
+            switchprocess(ghost,incpu)
+            timer+=timerSwitch
+        if incpu.start == -1:
+            incpu.start = timer
+            startprocess(incpu)
+    else:
+        if incpu.timestep():
+            incpu.end=timer
+            terminateprocess(incpu)
+            procsterminated+=1
+            data.input(incpu)
+            
+            ghost=incpu
+            incpu=-1
+        
+        timer+=1
+    
+print "\nPreemptive Priority algorithm results:"
+data.timelistPrint()
+
+
+
+
