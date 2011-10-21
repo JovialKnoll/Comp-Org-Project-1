@@ -7,9 +7,9 @@ import copy
 import sys
 
 
-#so far, just printout functions.  pass Processes to these
+#printout functions.  pass Processes to these and they will print what they say they will
 def createprocess(a):
-    print "[time","%.fms] Process" % (timer),"%.f created (requiring" % (a.id),"%.fms cpu time)" % (a.duration)
+    print "[time","%.fms] Process" % (a.enter),"%.f created (requiring" % (a.id),"%.fms cpu time)" % (a.duration)
 def switchprocess(a,b):
     print "[time","%.fms] Context switch (swapped out process" % (timer),"%.f for process" % (a.id),"%.f)" % (b.id)
 def startprocess(a):
@@ -56,7 +56,7 @@ while(procsterminated<len(processes)):
     
     if(pnum<len(processes)):
         a=processes[pnum]
-        while(a.enter==timer):
+        while(a.enter<=timer):
             queue.put(a)
             createprocess(a)
             pnum+=1
@@ -68,7 +68,7 @@ while(procsterminated<len(processes)):
         
         if ghost!=-1:
             switchprocess(ghost,incpu)
-            timer+=8
+            timer+=timerSwitch
         if incpu.start == -1:
             incpu.start = timer
             startprocess(incpu)
@@ -109,7 +109,7 @@ while(procsterminated<len(processes)):
     
     if(pnum<len(processes)):
         a=processes[pnum]
-        while(a.enter==timer):
+        while(a.enter<=timer):
             queue.put((a.duration,a))
             createprocess(a)
             pnum+=1
@@ -121,7 +121,7 @@ while(procsterminated<len(processes)):
         
         if ghost!=-1:
             switchprocess(ghost,incpu)
-            timer+=8
+            timer+=timerSwitch
         if incpu.start == -1:
             incpu.start = timer
             startprocess(incpu)
@@ -174,7 +174,7 @@ while(procsterminated<len(processes)):
     
     if(pnum<len(processes)):
         a=processes[pnum]
-        while(a.enter==timer):
+        while(a.enter<=timer):
             queue.put(a)
             createprocess(a)
             pnum+=1
@@ -186,7 +186,7 @@ while(procsterminated<len(processes)):
         
         if ghost!=-1:
             switchprocess(ghost,incpu)
-            timer+=8
+            timer+=timerSwitch
         if incpu.start == -1:
             incpu.start = timer
             startprocess(incpu)
@@ -196,6 +196,7 @@ while(procsterminated<len(processes)):
             incpu.end=timer
             terminateprocess(incpu)
             procsterminated+=1
+            #print procsterminated
             data.input(incpu)
             
             ghost=incpu
