@@ -30,4 +30,3 @@ class Data():
         print "\tTotal wait times:\n\t\tMinimum: %.3f" % (self.timelist[6])
         print "\t\tAverage: %.3f" % (self.timelist[7]/self.n)
         print "\t\tMaximum: %.3f\n" % (self.timelist[8])
-        
