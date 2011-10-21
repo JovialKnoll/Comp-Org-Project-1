@@ -21,16 +21,13 @@ class Data():
         self.timelist[8] = max(self.timelist[8],inpro.twait())
         
     def timelistPrint(self):
-        print "\tTurnaround times:"
-        print "\t\tMinimum:", round(self.timelist[0],3)
-        print "\t\tAverage:", round(self.timelist[1]/self.n,3)
-        print "\t\tMaximum:", round(self.timelist[2],3)
-        print "\tInitial wait times:"
-        print "\t\tMinimum: %.3f"% self.timelist[3]
-        print "\t\tAverage: %.3f"% (self.timelist[4]/self.n)
-        print "\t\tMaximum:", round(self.timelist[5],3)
-        print "\tTotal wait times:"
-        print "\t\tMinimum:", round(self.timelist[6],3)
-        print "\t\tAverage:", round(self.timelist[7]/self.n,3)
-        print "\t\tMaximum:", round(self.timelist[8],3), "\n"
+        print "\tTurnaround times:\n\t\tMinimum: %.3f" % (self.timelist[0])
+        print "\t\tAverage: %.3f" % (self.timelist[1])
+        print "\t\tMaximum: %.3f" % (self.timelist[2])
+        print "\tInitial wait times:\n\t\tMinimum: %.3f" % (self.timelist[3])
+        print "\t\tAverage: %.3f" % (self.timelist[4]/self.n)
+        print "\t\tMaximum: %.3f" % (self.timelist[5])
+        print "\tTotal wait times:\n\t\tMinimum: %.3f" % (self.timelist[6])
+        print "\t\tAverage: %.3f" % (self.timelist[7]/self.n)
+        print "\t\tMaximum: %.3f\n" % (self.timelist[8])
         
