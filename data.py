@@ -26,8 +26,8 @@ class Data():
         print "\t\tAverage:", round(self.timelist[1]/self.n,3)
         print "\t\tMaximum:", round(self.timelist[2],3)
         print "\tInitial wait times:"
-        print "\t\tMinimum:", round(self.timelist[3],3)
-        print "\t\tAverage:", round(self.timelist[4]/self.n,3)
+        print "\t\tMinimum: %.3f"% self.timelist[3]
+        print "\t\tAverage: %.3f"% (self.timelist[4]/self.n)
         print "\t\tMaximum:", round(self.timelist[5],3)
         print "\tTotal wait times:"
         print "\t\tMinimum:", round(self.timelist[6],3)
